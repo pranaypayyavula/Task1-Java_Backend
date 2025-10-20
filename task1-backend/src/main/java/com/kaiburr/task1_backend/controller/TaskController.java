@@ -86,13 +86,14 @@ public class TaskController {
      * @return 204 No Content on successful deletion.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable String id) {
+    public ResponseEntity<String> deleteTask(@PathVariable String id) {
         if (!taskRepository.existsById(id)) {
             // Throw 404 if the task doesn't exist
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task with ID " + id + " not found.");
         }
         taskRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        // Return 200 OK with a success message
+        return ResponseEntity.ok("Task with ID " + id + " has been successfully deleted.");
     }
 
     /**
